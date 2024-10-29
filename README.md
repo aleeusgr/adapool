@@ -1,51 +1,120 @@
-**Title:** Implement Decentralized Trading Feature for USDT on Bybit vs ADA on Native Wallet
+# Constant Product Algorithm Trading on Bybit and Native ADA Wallet
+=============================================================
 
-**Description:** As a cryptocurrency trader, I want to be able to trade USDT (Tether USD) on Bybit against ADA (Cardano) stored in my native wallet using a constant product algorithm. This feature will enable me to leverage the best of both worlds: the liquidity of Bybit for USDT and the security of my native wallet for ADA.
+Table of Contents
+-----------------
 
-**Acceptance Criteria:**
+1. [Overview](#overview)
+2. [Project Structure](#project-structure)
+3. [Requirements](#requirements)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Configuration](#configuration)
+7. [Algorithms](#algorithms)
+8. [Bybit Integration](#bybit-integration)
+9. [Native ADA Wallet Integration](#native-ada-wallet-integration)
+10. [License](#license)
 
-1. **Connectivity**: Establish a secure connection to Bybit API for USDT trading and integrate with the native wallet for ADA storage.
-2. **Constant Product Algorithm**: Implement the constant product algorithm to determine the optimal trading price for USDT and ADA based on market conditions.
-3. **Order Management**: Create, manage, and execute trades (limit orders and market orders) for USDT on Bybit and ADA on native wallet.
-4. **Real-time Price Updates**: Fetch and update prices for USDT and ADA in real-time to ensure accurate trading decisions.
-5. **Trade Execution**: Execute trades instantly, considering the constant product algorithm, order types, and market conditions.
-6. **Security**: Implement robust security measures to protect user's ADA funds stored in the native wallet and USDT funds on Bybit.
-7. **User Interface**: Design an intuitive and user-friendly interface to display trading data, order book, and trade history.
-8. **Error Handling**: Implement comprehensive error handling to handle API errors, connection issues, and other unexpected events.
+## Overview
+-----------
 
-**User Journey:**
+This project implements a constant product algorithm for trading USDT on Bybit and ADA on a native wallet. The algorithm adjusts the prices based on the current market conditions to maximize profit.
 
-1. **Setup**: User sets up their Bybit API keys and native wallet for ADA storage.
-2. **Dashboard**: User accesses the trading dashboard, which displays the current prices of USDT and ADA, order book, and trade history.
-3. **Order Creation**: User creates a trade order (limit or market) for USDT on Bybit and ADA on native wallet.
-4. **Order Execution**: The system executes the trade using the constant product algorithm and real-time prices.
-5. **Trade Management**: User monitors and manages their trades, with the option to cancel or modify orders.
+## Project Structure
+---------------------
 
-**Dependencies:**
+The project consists of the following directories:
 
-* Bybit API for USDT trading
-* Native wallet for ADA storage (e.g., Daedalus, Yoroi)
-* Web3 libraries for blockchain interactions
-* Front-end framework for UI development (e.g., React, Angular)
+* `bybit`: Contains the Bybit API client and trading logic.
+* `ada_wallet`: Contains the native ADA wallet integration.
+* `algorithm`: Contains the constant product algorithm implementation.
+* `config`: Contains the project configuration files.
 
-**Assumptions and Preconditions:**
+## Requirements
+------------
 
-* User has a Bybit account and native wallet for ADA storage.
-* User has basic knowledge of cryptocurrency trading and blockchain technology.
-* The system will be built on top of existing infrastructure and APIs.
+* Python 3.8+
+* `ccxt` library for Bybit API integration
+* `cardanoserializationlib` library for ADA native wallet integration
 
-**Success Metrics:**
+## Installation
+------------
 
-* Successful execution of trades using the constant product algorithm.
-* User adoption and engagement with the feature.
-* Positive user feedback on the feature's performance and usability.
+To install the required libraries, run the following command:
 
-**Risks and Challenges:**
+```bash
+pip install ccxt cardanoserializationlib
+```
 
-* Integration challenges with Bybit API and native wallet.
-* Security risks associated with handling user funds and API keys.
-* Complexity of implementing the constant product algorithm.
+## Usage
+-----
 
-**Prioritization:**
+To run the project, execute the following command:
 
-This feature is a high priority, as it enables users to trade USDT on Bybit against ADA on native wallet using a constant product algorithm, providing a unique value proposition for cryptocurrency traders.
+```bash
+python main.py
+```
+
+## Configuration
+-------------
+
+The project uses a configuration file (`config.json`) to store the API keys, wallet information, and other settings. Modify the file to suit your needs.
+
+```json
+{
+    "bybit": {
+        "api_key": "your_bybit_api_key",
+        "api_secret": "your_bybit_api_secret"
+    },
+    "ada_wallet": {
+        "mnemonic": "your_ada_wallet_mnemonic",
+        "passphrase": "your_ada_wallet_passphrase"
+    },
+    "algorithm": {
+        "constant_product": 0.05
+    }
+}
+```
+
+## Algorithms
+-------------
+
+The project uses a constant product algorithm to adjust the prices based on the current market conditions.
+
+```python
+def constant_product(price, quantity, constant):
+    return price * quantity * (1 + constant)
+```
+
+## Bybit Integration
+-------------------
+
+The project uses the `ccxt` library to integrate with the Bybit API.
+
+```python
+import ccxt
+
+bybit = ccxt.bybit({
+    'apiKey': config['bybit']['api_key'],
+    'apiSecret': config['bybit']['api_secret']
+})
+```
+
+## Native ADA Wallet Integration
+--------------------------------
+
+The project uses the `cardanoserializationlib` library to integrate with the native ADA wallet.
+
+```python
+import cardanoserializationlib as csl
+
+wallet = csl deserializationMnemonic(
+    mnemonic=config['ada_wallet']['mnemonic'],
+    passphrase=config['ada_wallet']['passphrase']
+)
+```
+
+## License
+-------
+
+This project is licensed under the MIT License.
