@@ -1,120 +1,100 @@
-# Constant Product Algorithm Trading on Bybit and Native ADA Wallet
-=============================================================
+**Adapool: Centralized Market Maker for Cardano**
+=====================================================
 
-Table of Contents
------------------
-
-1. [Overview](#overview)
-2. [Project Structure](#project-structure)
-3. [Requirements](#requirements)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Configuration](#configuration)
-7. [Algorithms](#algorithms)
-8. [Bybit Integration](#bybit-integration)
-9. [Native ADA Wallet Integration](#native-ada-wallet-integration)
-10. [License](#license)
-
-## Overview
------------
-
-This project implements a constant product algorithm for trading USDT on Bybit and ADA on a native wallet. The algorithm adjusts the prices based on the current market conditions to maximize profit.
-
-## Project Structure
----------------------
-
-The project consists of the following directories:
-
-* `bybit`: Contains the Bybit API client and trading logic.
-* `ada_wallet`: Contains the native ADA wallet integration.
-* `algorithm`: Contains the constant product algorithm implementation.
-* `config`: Contains the project configuration files.
-
-## Requirements
+**Overview**
 ------------
 
-* Python 3.8+
-* `ccxt` library for Bybit API integration
-* `cardanoserializationlib` library for ADA native wallet integration
+Adapool is a centralized market maker (CMM) library designed for the Cardano blockchain. It provides a simple and efficient way to interact with the Cardano blockchain, allowing users to retrieve token balances and calculate constant product and conversion rates.
 
-## Installation
+**Features**
 ------------
 
-To install the required libraries, run the following command:
+* **Token Balance Retrieval**: Retrieve the amounts of ADA and USDT tokens in a user's wallet.
+* **Constant Product Calculation**: Calculate the constant product of a liquidity pool based on the token balances.
+* **Conversion Rate Calculation**: Calculate the conversion rate between ADA and USDT tokens.
 
+**Installation**
+------------
+
+To use Adapool, you'll need to have Node.js installed on your system. You can install Adapool using npm:
 ```bash
-pip install ccxt cardanoserializationlib
+npm install adapool
 ```
-
-## Usage
+**Usage**
 -----
 
-To run the project, execute the following command:
+```javascript
+const Adapool = require('adapool');
 
-```bash
-python main.py
+// Initialize the Adapool instance with your wallet address and credentials
+const adapool = new Adapool({
+  walletAddress: 'addr123',
+  credentials: {
+    user: 'username',
+    password: 'password',
+  },
+});
+
+// Retrieve the ADA balance of the wallet
+adapool.getAdaBalance()
+  .then((balance) => console.log(`ADA balance: ${balance}`))
+  .catch((error) => console.error(`Error: ${error}`));
+
+// Retrieve the USDT balance of the wallet
+adapool.getUsdtBalance()
+  .then((balance) => console.log(`USDT balance: ${balance}`))
+  .catch((error) => console.error(`Error: ${error}`));
+
+// Calculate the constant product of a liquidity pool
+adapool.calculateConstantProduct(1000, 1000)
+  .then((product) => console.log(`Constant product: ${product}`))
+  .catch((error) => console.error(`Error: ${error}`));
+
+// Calculate the conversion rate between ADA and USDT
+adapool.calculateConversionRate(1000, 1000)
+  .then((rate) => console.log(`Conversion rate: ${rate}`))
+  .catch((error) => console.error(`Error: ${error}`));
 ```
+**API Documentation**
+--------------------
 
-## Configuration
--------------
+### `Adapool`
 
-The project uses a configuration file (`config.json`) to store the API keys, wallet information, and other settings. Modify the file to suit your needs.
+* `new Adapool(options)`: Initializes a new Adapool instance with the given options.
+	+ `options.walletAddress`: The address of the wallet to interact with.
+	+ `options.credentials`: An object containing the username and password for the wallet.
 
-```json
-{
-    "bybit": {
-        "api_key": "your_bybit_api_key",
-        "api_secret": "your_bybit_api_secret"
-    },
-    "ada_wallet": {
-        "mnemonic": "your_ada_wallet_mnemonic",
-        "passphrase": "your_ada_wallet_passphrase"
-    },
-    "algorithm": {
-        "constant_product": 0.05
-    }
-}
-```
+### `getAdaBalance()`
 
-## Algorithms
--------------
+* Retrieves the ADA balance of the wallet.
+* Returns a promise that resolves with the ADA balance.
 
-The project uses a constant product algorithm to adjust the prices based on the current market conditions.
+### `getUsdtBalance()`
 
-```python
-def constant_product(price, quantity, constant):
-    return price * quantity * (1 + constant)
-```
+* Retrieves the USDT balance of the wallet.
+* Returns a promise that resolves with the USDT balance.
 
-## Bybit Integration
--------------------
+### `calculateConstantProduct(adaBalance, usdtBalance)`
 
-The project uses the `ccxt` library to integrate with the Bybit API.
+* Calculates the constant product of a liquidity pool based on the given ADA and USDT balances.
+* Returns a promise that resolves with the constant product.
 
-```python
-import ccxt
+### `calculateConversionRate(adaBalance, usdtBalance)`
 
-bybit = ccxt.bybit({
-    'apiKey': config['bybit']['api_key'],
-    'apiSecret': config['bybit']['api_secret']
-})
-```
+* Calculates the conversion rate between ADA and USDT based on the given ADA and USDT balances.
+* Returns a promise that resolves with the conversion rate.
 
-## Native ADA Wallet Integration
---------------------------------
+**License**
+----------
 
-The project uses the `cardanoserializationlib` library to integrate with the native ADA wallet.
+Adapool is available under the MIT License.
 
-```python
-import cardanoserializationlib as csl
+**Contributing**
+---------------
 
-wallet = csl deserializationMnemonic(
-    mnemonic=config['ada_wallet']['mnemonic'],
-    passphrase=config['ada_wallet']['passphrase']
-)
-```
+Contributions to Adapool are welcome! Please open an issue or submit a pull request to discuss changes or submit new features.
 
-## License
--------
+**Disclaimer**
+--------------
 
-This project is licensed under the MIT License.
+Adapool is provided "as is" without warranty of any kind. Use at your own risk.
